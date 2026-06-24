@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Nayla Nails</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(
+        135deg,
+        #fff7fa,
+        #fde8f0,
+        #f8d7e8
+    );
+    padding:20px;
+}
+
+.contenedor{
+    width:550px;
+    padding:40px;
+    border-radius:30px;
+    background:rgba(255,255,255,.9);
+    box-shadow:0 20px 50px rgba(0,0,0,.12);
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.logo-circle{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    border:2px solid #efb8cb;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:auto;
+    background:white;
+}
+
+.logo-circle span{
+    font-size:60px;
+    color:#d884a2;
+}
+
+.logo h1{
+    margin-top:15px;
+    color:#d884a2;
+    font-size:42px;
+    font-weight:300;
+}
+
+.logo p{
+    color:#888;
+    letter-spacing:4px;
+    font-size:12px;
+}
+
+input,
+select{
+    width:100%;
+    padding:15px;
+    margin-top:15px;
+    border:none;
+    border-radius:15px;
+    box-shadow:0 3px 8px rgba(0,0,0,.08);
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:20px;
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(
+        90deg,
+        #e87bb2,
+        #c47cf8
+    );
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+#horarios{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:20px;
+}
+
+.hora{
+    width:80px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#f3b4c6;
+    color:white;
+    cursor:pointer;
+}
+
+.mensaje{
+    margin-top:20px;
+    text-align:center;
+    font-weight:600;
+}
+.turno button{
+
+    margin-top:10px;
+
+    background:#ff6b81;
+
+    padding:10px;
+
+    border:none;
+
+    border-radius:10px;
+
+    color:white;
+
+    cursor:pointer;
+
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+<div class="logo">
+
+<div class="logo-circle">
+<span>N</span>
+</div>
+
+<h1>Nayla Nails</h1>
+
+<p>BELLEZA EN TUS MANOS</p>
+
+</div>
+
+<input
+type="text"
+id="nombre"
+placeholder="Ingrese su nombre">
+
+<select id="servicio">
+
+<option value="">
+Seleccione un servicio
+</option>
+
+<option value="Semipermanente|60">
+Semipermanente — 1 hora
+</option>
+
+<option value="Capping|90">
+Capping — 1 hora 30 min
+</option>
+
+<option value="Esculpidas|120">
+Esculpidas — 2 horas
+</option>
+
+<option value="Softgel|90">
+Softgel — 1 hora 30 min
+</option>
+
+<option value="Lifting de pestañas|60">
+Lifting de pestañas — 1 hora
+</option>
+
+<option value="Perfilado de cejas|30">
+Perfilado de cejas — 30 minutos
+</option>
+
+<option value="Laminado de cejas|60">
+Laminado de cejas — 1 hora
+</option>
+
+<option value="Perfilado y laminado|60">
+Perfilado y laminado — 1 hora
+</option>
+
+</select>
+
+<button onclick="ingresar()">
+Ingresar
+</button>
+
+<div id="mensaje" class="mensaje"></div>
+
+<div id="agenda" style="display:none;">
+
+<input
+type="date"
+id="fecha">
+
+<h3 style="
+margin-top:20px;
+color:#d884a2;">
+Horarios disponibles
+</h3>
+
+<div id="horarios">
+
+<button class="hora">09:00</button>
+<button class="hora">09:30</button>
+<button class="hora">10:00</button>
+<button class="hora">10:30</button>
+<button class="hora">11:00</button>
+<button class="hora">11:30</button>
+<button class="hora">12:00</button>
+<button class="hora">12:30</button>
+<button class="hora">13:00</button>
+<button class="hora">13:30</button>
+<button class="hora">14:00</button>
+<button class="hora">14:30</button>
+<button class="hora">15:00</button>
+<button class="hora">15:30</button>
+<button class="hora">16:00</button>
+<button class="hora">16:30</button>
+<button class="hora">17:00</button>
+<button class="hora">17:30</button>
+<button class="hora">18:00</button>
+
+</div>
+
+</div>
+<div
+id="turnoSeleccionado"
+class="mensaje">
+</div>
+
+<h3 style="
+margin-top:30px;
+color:#d884a2;">
+Mis turnos
+</h3>
+
+<div id="listaTurnos">
+</div>
+<script>
+
+const horarios = [
+
+"09:00",
+"10:00",
+"11:00",
+"12:00",
+"13:00",
+"14:00",
+"15:00",
+"16:00",
+"17:00",
+"18:00"
+
+];
+
+function ingresar(){
+
+    let nombre =
+    document.getElementById(
+    "nombre"
+    ).value;
+
+    if(nombre.trim() !== ""){
+
+        localStorage.setItem(
+        "cliente",
+        nombre
+        );
+
+        document.getElementById(
+        "mensaje"
+        ).innerHTML =
+
+        "💖 Bienvenida " +
+        nombre;
+
+        document.getElementById(
+        "mensaje"
+        ).style.color =
+        "green";
+
+        document.getElementById(
+        "agenda"
+        ).style.display =
+        "block";
+
+    }else{
+
+        document.getElementById(
+        "mensaje"
+        ).innerHTML =
+
+        "Ingrese su nombre.";
+
+        document.getElementById(
+        "mensaje"
+        ).style.color =
+        "red";
+    }
+
+}
+
+document.querySelectorAll(
+".hora"
+).forEach(function(boton){
+
+    boton.onclick =
+    function(){
+
+        reservar(
+        this.innerHTML
+        );
+
+    };
+
+});
+
+function reservar(hora){
+
+    let fecha =
+    document.getElementById(
+    "fecha"
+    ).value;
+
+    if(fecha===""){
+
+        alert(
+        "Seleccione una fecha."
+        );
+
+        return;
+
+    }
+
+    let servicio =
+    document.getElementById(
+    "servicio"
+    ).value;
+
+    if(servicio===""){
+
+        alert(
+        "Seleccione un servicio."
+        );
+
+        return;
+
+    }
+
+    let datos =
+    servicio.split("|");
+
+    let nombreServicio =
+    datos[0];
+
+    let duracion =
+    datos[1];
+
+    let nombre =
+    localStorage.getItem(
+    "cliente"
+    );
+
+    let turnos =
+    JSON.parse(
+    localStorage.getItem(
+    "turnos"
+    )) || [];
+
+    let ocupado =
+    turnos.find(function(t){
+
+        return t.fecha===fecha &&
+               t.hora===hora;
+
+    });
+
+    if(ocupado){
+
+        alert(
+        "Ese horario ya está ocupado."
+        );
+
+        return;
+
+    }
+
+    turnos.push({
+
+        nombre:nombre,
+        servicio:nombreServicio,
+        fecha:fecha,
+        hora:hora,
+        duracion:duracion
+
+    });
+
+    localStorage.setItem(
+
+    "turnos",
+
+    JSON.stringify(
+    turnos)
+
+    );
+
+    document.getElementById(
+    "turnoSeleccionado"
+    ).innerHTML =
+
+    "✨ Turno confirmado" +
+
+    "<br>💅 " +
+    nombreServicio +
+
+    "<br>📅 " +
+    fecha +
+
+    "<br>⏰ " +
+    hora +
+
+    "<br>⌛ " +
+    duracion +
+    " minutos";
+
+    mostrarTurnos();
+
+}
+
+function mostrarTurnos(){
+
+    let lista =
+    document.getElementById(
+    "listaTurnos"
+    );
+
+    lista.innerHTML = "";
+
+    let turnos =
+    JSON.parse(
+    localStorage.getItem(
+    "turnos"
+    )) || [];
+
+    turnos.forEach(function(t,i){
+
+        lista.innerHTML +=
+
+        "<div class='turno'>" +
+
+        "💖 <strong>" +
+        t.nombre +
+        "</strong><br>" +
+
+        "💅 " +
+        t.servicio +
+        "<br>" +
+
+        "📅 " +
+        t.fecha +
+        "<br>" +
+
+        "⏰ " +
+        t.hora +
+        "<br>" +
+
+        "⌛ " +
+        t.duracion +
+        " minutos" +
+
+        "<br><button onclick='eliminar(" +
+        i +
+        ")'>Cancelar</button>" +
+
+        "</div>";
+
+    });
+
+}
+
+function eliminar(i){
+
+    let turnos =
+    JSON.parse(
+    localStorage.getItem(
+    "turnos"
+    )) || [];
+
+    turnos.splice(i,1);
+
+    localStorage.setItem(
+
+    "turnos",
+
+    JSON.stringify(
+    turnos)
+
+    );
+
+    mostrarTurnos();
+
+}
+
+mostrarTurnos();
+
+
+
+function ingresar(){
+
+    let nombre =
+    document.getElementById(
+    "nombre").value;
+
+    if(nombre.trim() !== ""){
+
+        document.getElementById(
+        "mensaje").innerHTML =
+
+        "💖 Bienvenida " +
+        nombre;
+
+        document.getElementById(
+        "mensaje").style.color =
+        "green";
+
+        document.getElementById(
+        "agenda").style.display =
+        "block";
+
+    }else{
+
+        document.getElementById(
+        "mensaje").innerHTML =
+
+        "Ingrese su nombre.";
+
+        document.getElementById(
+        "mensaje").style.color =
+        "red";
+
+    }
+
+}
+
+</script>
+
+</div>
+
+</body>
+
+</html>
